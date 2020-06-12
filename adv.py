@@ -1,7 +1,7 @@
 from room import Room
 from player import Player
 from world import World
-from util import Stack
+
 import random
 from ast import literal_eval
 
@@ -30,7 +30,7 @@ player = Player(world.starting_room)
 # traversal_path = ['n', 'n']
 traversal_path = []
 
-def get_directions(current_room, visited_rooms):
+def my_direction(current_room, visited_rooms):
     exits = []
 
     for exit in current_room.get_exits():
@@ -38,7 +38,7 @@ def get_directions(current_room, visited_rooms):
             exits.append(exit)
     return exits
 
-def find_room():
+def seek_room():
     visited_rooms = set()
     visited_rooms.add(player.current_room.id)
     path = []
@@ -46,7 +46,7 @@ def find_room():
     
     while len(visited_rooms) < len(room_graph.keys()):
         current_room = player.current_room.id
-        exits = get_directions(player.current_room, visited_rooms)
+        exits = my_direction(player.current_room, visited_rooms)
 
         if len(exits) == 0: 
             exit_path = path.pop()
@@ -69,7 +69,7 @@ def find_room():
             player.travel(exit_path)
             break
 
-find_room()
+seek_room()
 
 # TRAVERSAL TEST - DO NOT MODIFY
 visited_rooms = set()
